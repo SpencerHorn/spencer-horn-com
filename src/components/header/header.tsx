@@ -5,8 +5,10 @@ import './header.css';
 
 export const Header: React.FC = () => {
   return (
-    <header>
-      <img src={logob} className='shlogo' alt="Spencer Horn Logo" />
-    </header>
+    <div className='header-box'>
+      <header>
+        <img src={logob} className='shlogo' alt="Spencer Horn Logo" />
+      </header>
+    </div>
   );
 };

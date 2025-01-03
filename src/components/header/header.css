@@ -4,6 +4,31 @@
   margin-top: 100px;
 }
 
+header {
+  display: flex;
+  justify-content: center;
+  animation-name: moveInLeft;
+  animation-duration: 1s;
+  animation-timing-function: ease-in-out;
+  backface-visibility: hidden;
+}
+
+@keyframes moveInLeft {
+  0% {
+    opacity: 0;
+    transform: translateX(-100px);
+  }
+
+  80% {
+    transform: translateX(10px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
 @media (prefers-color-scheme: dark) {
   .shlogo {
     content: url('../../assets/spencer-horn-logo-white.png');
