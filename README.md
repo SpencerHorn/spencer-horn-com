@@ -1,1 +1,0 @@
-# Spencer Horn personal website
