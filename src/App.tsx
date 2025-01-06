@@ -1,15 +1,15 @@
-import { Header } from './components/header/header.tsx'
-import { Nav } from './components/nav/nav.tsx'
+import Header from './components/header/header.tsx'
+import logob from './assets/spencer-horn-logo-black.png'
+import Nav from './components/nav/nav.tsx'
 import './App.css'
 
-function App() {
-
+export default function App() {
   return (
     <>
-      <Header />
-      <Nav />
+      <section id='header'>
+        <Header image={{ src: logob, alt: 'Spencer Horn logo'} } />
+        <Nav />
+      </section>
     </>
   )
 }
-
-export default App

@@ -1,14 +1,18 @@
-import React from 'react';
+type HeaderProps = {
+  image: {
+    src: string;
+    alt: string
+  };
+};
 
-import logob from '../../assets/spencer-horn-logo-black.png';
 import './header.css';
 
-export const Header: React.FC = () => {
+export default function Header({ image }: HeaderProps) {
   return (
     <div className='header-box'>
       <header>
-        <img src={logob} className='shlogo' alt="Spencer Horn Logo" />
+        <img className='shlogo' {...image} />
       </header>
     </div>
   );
-};
+}

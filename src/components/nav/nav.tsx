@@ -1,7 +1,6 @@
-import React from 'react';
 import './nav.css';
 
-export const Nav: React.FC = () => {
+export default function Nav() {
   return (
     <nav>
       <a href="https://www.linkedin.com/in/SpencerLHorn" 
@@ -21,5 +20,5 @@ export const Nav: React.FC = () => {
         Download Resume
       </a>
     </nav>
-  );
-};
+  )
+}
