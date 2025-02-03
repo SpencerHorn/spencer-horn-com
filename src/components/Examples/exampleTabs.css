@@ -51,11 +51,21 @@
   margin: 0;
 }
 
-#tab-content code {
-  font-size: 1rem;
-}
-
 #tab-content p {
   margin-top: 1rem;
   color: rgb(255, 255, 255)
+}
+
+@media (prefers-color-scheme: dark) {
+  #experience h2 {
+    color: #ffffff;
+  }
+
+  #experience p {
+    color: #ffffff;
+  }
+
+  #experience .menu button {
+    color: #ffffff;
+  }
 }
