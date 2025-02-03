@@ -1,6 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
 
-:root {
+* {
+  box-sizing: border-box;
+}
+
+html {
   font-family: 'Roboto', sans-serif;
   line-height: 1.5;
   font-weight: 400;
@@ -31,10 +35,10 @@ main {
 }
 
 main h2 {
-  text-align: center;
+  text-align: left;
   font-family: "Roboto Condensed", sans-serif;
   margin: 0 0 1.5rem 0;
-  color: #a18aba;
+  color: #000000;
 }
 
 @media (prefers-color-scheme: light) {
