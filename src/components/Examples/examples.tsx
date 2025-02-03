@@ -4,13 +4,6 @@ import Section from '../section';
 import Tabs from '../tabs';
 import { EXPERIENCES } from '../../data/data.ts';
 
-interface Experience {
-  title: string;
-  description: string;
-  bullets: string[];
-  technologies?: string;
-}
-
 const Experiences: React.FC = () => {
   const [selectedExample, setSelectedExample] = useState<string | null>(null);
 
