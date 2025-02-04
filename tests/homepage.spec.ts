@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 import { Homepage } from '../pages/homepage';
 
-const baseUrl = 'https://www.spencerhorn.com';
+const baseUrl = 'http://localhost:5173/';
 
 test.describe('spencerhorn.com tests', () => {
   let homepage: Homepage;

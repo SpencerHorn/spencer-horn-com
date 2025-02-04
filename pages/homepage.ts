@@ -28,10 +28,10 @@ export class Homepage {
     });
     this.salesloftButton = page.getByRole('button', { name: 'Salesloft' });
     this.davinciButton = page.getByRole('button', {
-      name: 'Davinci Education',
+      name: 'Davinci',
     });
     this.fibonacciButton = page.getByRole('button', {
-      name: 'Fibonacci Solutions',
+      name: 'Fibonacci',
     });
     this.unspecifiedButton = page.getByRole('button', { name: 'Unspecified' });
     this.ibmButton = page.getByRole('button', { name: 'IBM' });

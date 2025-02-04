@@ -10,7 +10,6 @@ export default function App() {
       <main>
       <Header image={{ src: logob, alt: 'Spencer Horn logo' }} />
       <Nav />   
-
         <Experiences />
       </main>
     </>
