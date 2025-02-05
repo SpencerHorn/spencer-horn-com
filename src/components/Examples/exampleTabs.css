@@ -85,7 +85,17 @@
   }
 
   #experience .menu button {
-    color: #ffffff;
+    color: #000000;
+  }
+
+  #experience .menu button:hover {
+    background-color: #000000;
+    color: #ebe7ef;
+  }
+  
+  #experience .menu button.active {
+    background-color: #3f3f3f;
+    color: #ebe7ef;
   }
 }
 
