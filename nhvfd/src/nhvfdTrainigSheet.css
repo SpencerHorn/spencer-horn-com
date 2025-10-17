@@ -6,6 +6,11 @@ body {
   font-size: 11px;
 }
 
+.paper-container {
+  max-width: 800px;
+  margin: auto;
+  padding: 15px;
+
 .header {
   margin-bottom: 15px;
   text-align: center;
@@ -61,7 +66,7 @@ body {
 }
 .form-row {
   display: flex;
-  margin-bottom: 6px;
+  margin-bottom: 2px;
   gap: 10px;
 }
 .form-field {
@@ -124,13 +129,13 @@ input[type='checkbox'] {
   font-weight: bold;
 }
 .signature-line {
-  margin-top: 20px;
+  margin-top: 10px;
   width: 180px;
   padding-top: 1px;
   font-size: 10px;
 }
 .footer {
-  margin-top: 15px;
+  margin-top: 4px;
   font-size: 9px;
   text-align: right;
 }
@@ -209,7 +214,166 @@ input[type='checkbox'] {
     display: none !important;
   }
   body {
-    padding: 10px;
+    padding: 4px;
     font-size: 10px;
+  }
+}
+
+/* Mobile First - Small devices (phones, 576px and down) */
+@media (max-width: 576px) {
+  body {
+    padding: 8px;
+    font-size: 12px;
+  }
+  
+  .paper-container {
+    padding: 10px;
+    max-width: 100%;
+    margin: 0;
+    box-shadow: none;
+    border-radius: 0;
+  }
+  
+  .header h1 {
+    font-size: 14px;
+    white-space: normal;
+    text-align: center;
+  }
+  
+  .title-with-logo {
+    flex-direction: column;
+    gap: 8px;
+    text-align: center;
+  }
+  
+  .logo-image {
+    width: 60px;
+    height: 60px;
+  }
+  
+  .form-row {
+    flex-direction: column;
+    gap: 5px;
+    margin-bottom: 5px;
+  }
+  
+  .pdf-export {
+    flex-direction: column;
+    gap: 5px;
+    align-items: flex-end;
+  }
+  
+  .attendance-table {
+    font-size: 8px;
+  }
+  
+  .name-column {
+    width: 25%;
+  }
+  
+  .volunteer-management {
+    padding: 6px;
+    font-size: 9px;
+  }
+  
+  .volunteer-management input {
+    width: 120px;
+    margin-right: 5px;
+  }
+}
+
+/* Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) and (max-width: 767px) {
+  body {
+    padding: 10px;
+  }
+  
+  .paper-container {
+    padding: 12px;
+    max-width: 540px;
+  }
+  
+  .header h1 {
+    font-size: 15px;
+  }
+  
+  .logo-image {
+    width: 70px;
+    height: 70px;
+  }
+  
+  .attendance-table {
+    font-size: 8.5px;
+  }
+}
+
+/* Medium devices (tablets, 768px to 991px) */
+@media (min-width: 768px) and (max-width: 991px) {
+  .paper-container {
+    max-width: 720px;
+    padding: 15px;
+  }
+  
+  .header h1 {
+    font-size: 16px;
+  }
+  
+  .attendance-table {
+    font-size: 9px;
+  }
+}
+
+/* Large devices (desktops, 992px to 1199px) */
+@media (min-width: 992px) and (max-width: 1199px) {
+  .paper-container {
+    max-width: 800px;
+  }
+}
+
+/* Extra large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+  .paper-container {
+    max-width: 800px;
+  }
+}
+
+/* Very small devices (phones under 400px) */
+@media (max-width: 400px) {
+  body {
+    padding: 5px;
+    font-size: 11px;
+  }
+  
+  .paper-container {
+    padding: 8px;
+  }
+  
+  .header h1 {
+    font-size: 13px;
+  }
+  
+  .logo-image {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .attendance-table {
+    font-size: 7px;
+  }
+  
+  .name-cell {
+    padding-left: 2px;
+  }
+  
+  .volunteer-management input {
+    width: 100px;
+  }
+}
+
+/* High DPI screens */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 }
