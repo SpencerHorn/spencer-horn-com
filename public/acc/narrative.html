@@ -2,20 +2,25 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>EMS Patient Narrative</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <style>
-    body {
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
       font-family: Arial, sans-serif;
       background: #f4f4f4;
+    }
+
+    body {
       display: flex;
       justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      margin: 0;
-      padding: 10px;
+      align-items: flex-start;
+      overflow-x: hidden;
     }
+
     .container {
       background: white;
       padding: 20px;
@@ -23,16 +28,32 @@
       box-shadow: 0 0 10px rgba(0,0,0,0.1);
       width: 100%;
       max-width: 700px;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      overflow-y: auto;
+      height: 100dvh; /* dynamically accounts for keyboard height on mobile */
+      -webkit-overflow-scrolling: touch;
+      scroll-behavior: smooth;
+      padding-bottom: 140px; /* space for keyboard */
     }
+
     input, textarea {
       width: 100%;
-      margin: 8px 0;
+      margin: 6px 0;
       padding: 10px;
       border: 1px solid #ccc;
       border-radius: 5px;
       font-size: 1rem;
       box-sizing: border-box;
     }
+
+    textarea {
+      resize: vertical;
+      min-height: 120px;
+    }
+
     button {
       background: #2563eb;
       color: white;
@@ -44,31 +65,46 @@
       margin-top: 10px;
       width: 100%;
     }
+
     button:hover {
       background: #1d4ed8;
     }
+
     h1, h2 {
       text-align: center;
+      margin: 0.5em 0;
     }
+
     .vitals {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
+      display: flex;
+      flex-wrap: wrap;
       gap: 10px;
     }
-    @media (max-width: 600px) {
-      .vitals {
-        grid-template-columns: 1fr;
+
+    .vitals input {
+      flex: 1 1 calc(20% - 10px);
+      min-width: 120px;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        height: 100dvh;
+        overflow-y: auto;
+        padding-bottom: 160px;
       }
+
+      textarea:focus,
+      input:focus {
+        scroll-margin-bottom: 180px;
+      }
+
       h1 {
         font-size: 1.5rem;
       }
       h2 {
         font-size: 1.2rem;
       }
-      input, textarea {
-        font-size: 0.95rem;
-      }
-      button {
+      input, textarea, button {
         font-size: 0.95rem;
       }
     }
@@ -101,6 +137,16 @@
   </div>
 
   <script>
+    // ✅ Automatically scroll focused inputs into view (prevents keyboard overlap)
+    const inputs = document.querySelectorAll('input, textarea');
+    inputs.forEach(el => {
+      el.addEventListener('focus', () => {
+        setTimeout(() => {
+          el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }, 300);
+      });
+    });
+
     function savePDF() {
       const { jsPDF } = window.jspdf;
       const doc = new jsPDF();
