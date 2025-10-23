@@ -33,10 +33,10 @@
       flex-direction: column;
       gap: 10px;
       overflow-y: auto;
-      height: 100dvh; /* dynamically accounts for keyboard height on mobile */
+      height: 100dvh;
       -webkit-overflow-scrolling: touch;
       scroll-behavior: smooth;
-      padding-bottom: 140px; /* space for keyboard */
+      padding-bottom: 140px;
     }
 
     input, textarea {
@@ -54,7 +54,15 @@
       min-height: 120px;
     }
 
+    .button-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: space-between;
+    }
+
     button {
+      flex: 1 1 48%;
       background: #2563eb;
       color: white;
       border: none;
@@ -63,11 +71,18 @@
       cursor: pointer;
       font-size: 1rem;
       margin-top: 10px;
-      width: 100%;
     }
 
     button:hover {
       background: #1d4ed8;
+    }
+
+    .clear-btn {
+      background: #ef4444;
+    }
+
+    .clear-btn:hover {
+      background: #dc2626;
     }
 
     h1, h2 {
@@ -133,11 +148,13 @@
     <h2>Patient Narrative</h2>
     <textarea id="narrative" rows="6" placeholder="Enter patient narrative here..."></textarea>
 
-    <button onclick="savePDF()">Save as PDF</button>
+    <div class="button-group">
+      <button onclick="savePDF()">Save as PDF</button>
+      <button class="clear-btn" onclick="clearForm()">Clear Form</button>
+    </div>
   </div>
 
   <script>
-    // ✅ Automatically scroll focused inputs into view (prevents keyboard overlap)
     const inputs = document.querySelectorAll('input, textarea');
     inputs.forEach(el => {
       el.addEventListener('focus', () => {
@@ -188,6 +205,12 @@
       doc.text(doc.splitTextToSize(narrative, 180), 10, 180);
 
       doc.save('Patient_Narrative.pdf');
+    }
+
+    function clearForm() {
+      if (confirm('Clear all fields? This cannot be undone.')) {
+        document.querySelectorAll('input, textarea').forEach(el => el.value = '');
+      }
     }
   </script>
 </body>
