@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EMS Patient Narrative</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+      padding: 10px;
+    }
+    .container {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      width: 100%;
+      max-width: 700px;
+    }
+    input, textarea {
+      width: 100%;
+      margin: 8px 0;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 1rem;
+      box-sizing: border-box;
+    }
+    button {
+      background: #2563eb;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1rem;
+      margin-top: 10px;
+      width: 100%;
+    }
+    button:hover {
+      background: #1d4ed8;
+    }
+    h1, h2 {
+      text-align: center;
+    }
+    .vitals {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    @media (max-width: 600px) {
+      .vitals {
+        grid-template-columns: 1fr;
+      }
+      h1 {
+        font-size: 1.5rem;
+      }
+      h2 {
+        font-size: 1.2rem;
+      }
+      input, textarea {
+        font-size: 0.95rem;
+      }
+      button {
+        font-size: 0.95rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>EMS Patient Narrative</h1>
+
+    <div class="vitals">
+      <input id="bp" placeholder="Blood Pressure" />
+      <input id="hr" placeholder="Heart Rate" />
+      <input id="spo2" placeholder="SpO₂" />
+      <input id="rr" placeholder="Respiratory Rate" />
+      <input id="lungs" placeholder="Lung Sounds" />
+    </div>
+
+    <h2>S.A.M.P.L.E. History</h2>
+    <input id="s" placeholder="S - Signs/Symptoms" />
+    <input id="a" placeholder="A - Allergies" />
+    <input id="m" placeholder="M - Medications" />
+    <input id="p" placeholder="P - Past Medical History" />
+    <input id="l" placeholder="L - Last Oral Intake" />
+    <input id="e" placeholder="E - Events Leading Up To" />
+
+    <h2>Patient Narrative</h2>
+    <textarea id="narrative" rows="6" placeholder="Enter patient narrative here..."></textarea>
+
+    <button onclick="savePDF()">Save as PDF</button>
+  </div>
+
+  <script>
+    function savePDF() {
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF();
+
+      const bp = document.getElementById('bp').value;
+      const hr = document.getElementById('hr').value;
+      const spo2 = document.getElementById('spo2').value;
+      const rr = document.getElementById('rr').value;
+      const lungs = document.getElementById('lungs').value;
+
+      const s = document.getElementById('s').value;
+      const a = document.getElementById('a').value;
+      const m = document.getElementById('m').value;
+      const p = document.getElementById('p').value;
+      const l = document.getElementById('l').value;
+      const e = document.getElementById('e').value;
+
+      const narrative = document.getElementById('narrative').value;
+
+      doc.setFontSize(16);
+      doc.text('EMS Patient Narrative Report', 10, 15);
+      doc.setFontSize(12);
+
+      doc.text(`BP: ${bp}`, 10, 30);
+      doc.text(`HR: ${hr}`, 10, 40);
+      doc.text(`SpO₂: ${spo2}`, 10, 50);
+      doc.text(`RR: ${rr}`, 10, 60);
+      doc.text(`Lung Sounds: ${lungs}`, 10, 70);
+
+      doc.text('S.A.M.P.L.E. History:', 10, 90);
+      doc.text(`S - ${s}`, 10, 100);
+      doc.text(`A - ${a}`, 10, 110);
+      doc.text(`M - ${m}`, 10, 120);
+      doc.text(`P - ${p}`, 10, 130);
+      doc.text(`L - ${l}`, 10, 140);
+      doc.text(`E - ${e}`, 10, 150);
+
+      doc.text('Narrative:', 10, 170);
+      doc.text(doc.splitTextToSize(narrative, 180), 10, 180);
+
+      doc.save('Patient_Narrative.pdf');
+    }
+  </script>
+</body>
+</html>
