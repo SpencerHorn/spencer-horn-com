@@ -2,7 +2,10 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
     <title>EMS Patient Narrative</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <style>
@@ -106,50 +109,68 @@
       <input id="e" placeholder="E - Events Leading Up To" />
 
       <h2>Patient Narrative</h2>
-      <textarea id="narrative" rows="6" placeholder="Enter patient narrative here..."></textarea>
+      <textarea
+        id="narrative"
+        rows="6"
+        placeholder="Enter patient narrative here..."
+      ></textarea>
 
       <button onclick="savePDF()">Save as PDF</button>
       <button class="secondary" onclick="clearForm()">Clear Form</button>
     </div>
 
     <script>
-      const fieldIds = ['bp', 'hr', 'spo2', 'rr', 'lungs', 's', 'a', 'm', 'p', 'l', 'e', 'narrative'];
+      const fieldIds = [
+        "bp",
+        "hr",
+        "spo2",
+        "rr",
+        "lungs",
+        "s",
+        "a",
+        "m",
+        "p",
+        "l",
+        "e",
+        "narrative",
+      ];
 
       // Save form data to session storage whenever something changes
       fieldIds.forEach((id) => {
         const field = document.getElementById(id);
-        field.addEventListener('input', () => {
+        field.addEventListener("input", () => {
           sessionStorage.setItem(id, field.value);
         });
       });
 
-      // Load form data from session storage when the page loads
-      window.addEventListener('load', () => {
+      // Load saved data on page load
+      window.addEventListener("load", () => {
         fieldIds.forEach((id) => {
           const saved = sessionStorage.getItem(id);
           if (saved) document.getElementById(id).value = saved;
         });
       });
 
+      // Save PDF
       function savePDF() {
         const { jsPDF } = window.jspdf;
         const doc = new jsPDF();
 
-        const bp = document.getElementById('bp').value;
-        const hr = document.getElementById('hr').value;
-        const spo2 = document.getElementById('spo2').value;
-        const rr = document.getElementById('rr').value;
-        const lungs = document.getElementById('lungs').value;
-        const s = document.getElementById('s').value;
-        const a = document.getElementById('a').value;
-        const m = document.getElementById('m').value;
-        const p = document.getElementById('p').value;
-        const l = document.getElementById('l').value;
-        const e = document.getElementById('e').value;
-        const narrative = document.getElementById('narrative').value;
+        const bp = document.getElementById("bp").value;
+        const hr = document.getElementById("hr").value;
+        const spo2 = document.getElementById("spo2").value;
+        const rr = document.getElementById("rr").value;
+        const lungs = document.getElementById("lungs").value;
+        const s = document.getElementById("s").value;
+        const a = document.getElementById("a").value;
+        const m = document.getElementById("m").value;
+        const p = document.getElementById("p").value;
+        const l = document.getElementById("l").value;
+        const e = document.getElementById("e").value;
+        const narrative = document.getElementById("narrative").value;
 
         doc.setFontSize(16);
-        doc.text('EMS Patient Narrative Report', 10, 15);
+        doc.text("EMS Patient Narrative Report", 10, 15);
         doc.setFontSize(12);
         doc.text(`BP: ${bp}`, 10, 30);
         doc.text(`HR: ${hr}`, 10, 40);
@@ -157,7 +178,7 @@
         doc.text(`RR: ${rr}`, 10, 60);
         doc.text(`Lung Sounds: ${lungs}`, 10, 70);
 
-        doc.text('S.A.M.P.L.E. History:', 10, 90);
+        doc.text("S.A.M.P.L.E. History:", 10, 90);
         doc.text(`S - ${s}`, 10, 100);
         doc.text(`A - ${a}`, 10, 110);
         doc.text(`M - ${m}`, 10, 120);
@@ -165,24 +186,42 @@
         doc.text(`L - ${l}`, 10, 140);
         doc.text(`E - ${e}`, 10, 150);
 
-        doc.text('Narrative:', 10, 170);
+        doc.text("Narrative:", 10, 170);
         doc.text(doc.splitTextToSize(narrative, 180), 10, 180);
-        doc.save('Patient_Narrative.pdf');
+        doc.save("Patient_Narrative.pdf");
       }
 
+      // Clear form and session storage
       function clearForm() {
         fieldIds.forEach((id) => {
-          document.getElementById(id).value = '';
+          document.getElementById(id).value = "";
           sessionStorage.removeItem(id);
         });
       }
 
-      // Prevent keyboard overlap on mobile
-      document.querySelectorAll('input, textarea').forEach((el) => {
-        el.addEventListener('focus', () => {
-          setTimeout(() => el.scrollIntoView({ behavior: 'smooth', block: 'center' }), 300);
+      /** 🧭 MOBILE KEYBOARD FIX **/
+      const container = document.querySelector(".container");
+
+      // Adjust scroll when viewport changes due to keyboard
+      if (window.visualViewport) {
+        window.visualViewport.addEventListener("resize", () => {
+          document.activeElement?.scrollIntoView({
+            behavior: "smooth",
+            block: "center",
+          });
         });
-      });
+      }
+
+      // Fallback for browsers without visualViewport
+      document
+        .querySelectorAll("input, textarea")
+        .forEach((el) =>
+          el.addEventListener("focus", () => {
+            setTimeout(() => {
+              el.scrollIntoView({ behavior: "smooth", block: "center" });
+            }, 300);
+          })
+        );
     </script>
   </body>
 </html>
