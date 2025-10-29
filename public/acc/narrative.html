@@ -1,71 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>EMS Patient Narrative</title>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f4f4f4;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      margin: 0;
-      padding: 10px;
-      overflow-y: auto;
-    }
-    .container {
-      background: white;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-      width: 100%;
-      max-width: 700px;
-      box-sizing: border-box;
-    }
-    input, textarea {
-      width: 100%;
-      margin: 8px 0;
-      padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      font-size: 1rem;
-      box-sizing: border-box;
-    }
-    button {
-      background: #2563eb;
-      color: white;
-      border: none;
-      padding: 10px 20px;
-      border-radius: 5px;
-      cursor: pointer;
-      font-size: 1rem;
-      margin-top: 10px;
-      width: 100%;
-    }
-    button:hover {
-      background: #1d4ed8;
-    }
-    .secondary {
-      background: #6b7280;
-    }
-    .secondary:hover {
-      background: #4b5563;
-    }
-    h1, h2 {
-      text-align: center;
-    }
-    .vitals {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-    }
-    @media (max-width: 600px) {
-      .vitals {
-        grid-template-columns: 1fr;
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
+    <title>EMS Patient Narrative</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background: #f4f4f4;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        margin: 0;
+        padding: 10px;
+        overflow-y: auto;
+      }
+      .container {
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        max-width: 700px;
+        box-sizing: border-box;
+      }
+      input,
+      textarea {
+        width: 100%;
+        margin: 8px 0;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 1rem;
+        box-sizing: border-box;
+      }
+      button {
+        background: #2563eb;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 1rem;
+        margin-top: 10px;
+        width: 100%;
+      }
+      button:hover {
+        background: #1d4ed8;
+      }
+      .secondary {
+        background: #6b7280;
       }
       h1 {
         font-size: 1.5rem;
@@ -79,114 +68,144 @@
       button {
         font-size: 0.95rem;
       }
-    }
-  </style>
-</head>
-<body>
-  <div class="container">
-    <h1>EMS Patient Narrative</h1>
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>EMS Patient Narrative</h1>
 
-    <div class="vitals">
-      <input id="bp" placeholder="Blood Pressure" />
-      <input id="hr" placeholder="Heart Rate" />
-      <input id="spo2" placeholder="SpO₂" />
-      <input id="rr" placeholder="Respiratory Rate" />
-      <input id="lungs" placeholder="Lung Sounds" />
-      <input id="glucose" placeholder="Glucose" />
+      <div class="vitals">
+        <input id="bp" placeholder="Blood Pressure" />
+        <input id="hr" placeholder="Heart Rate" />
+        <input id="spo2" placeholder="SpO₂" />
+        <input id="rr" placeholder="Respiratory Rate" />
+        <input id="lungs" placeholder="Lung Sounds" />
+      </div>
+
+      <h2>S.A.M.P.L.E. History</h2>
+      <input id="s" placeholder="S - Signs/Symptoms" />
+      <input id="a" placeholder="A - Allergies" />
+      <input id="m" placeholder="M - Medications" />
+      <input id="p" placeholder="P - Past Medical History" />
+      <input id="l" placeholder="L - Last Oral Intake" />
+      <input id="e" placeholder="E - Events Leading Up To" />
+
+      <h2>Patient Narrative</h2>
+      <textarea
+        id="narrative"
+        rows="6"
+        placeholder="Enter patient narrative here..."
+      ></textarea>
+
+      <button onclick="savePDF()">Save as PDF</button>
+      <button class="secondary" onclick="clearForm()">Clear Form</button>
     </div>
 
-    <h2>S.A.M.P.L.E. History</h2>
-    <input id="s" placeholder="S - Signs/Symptoms" />
-    <input id="a" placeholder="A - Allergies" />
-    <input id="m" placeholder="M - Medications" />
-    <input id="p" placeholder="P - Past Medical History" />
-    <input id="l" placeholder="L - Last Oral Intake" />
-    <input id="e" placeholder="E - Events Leading Up To" />
+    <script>
+      const fieldIds = [
+        "bp",
+        "hr",
+        "spo2",
+        "rr",
+        "lungs",
+        "s",
+        "a",
+        "m",
+        "p",
+        "l",
+        "e",
+        "narrative",
+      ];
 
-    <h2>Patient Narrative</h2>
-    <textarea id="narrative" rows="6" placeholder="Enter patient narrative here..."></textarea>
-
-    <button onclick="savePDF()">Save as PDF</button>
-    <button class="secondary" onclick="clearForm()">Clear Form</button>
-  </div>
-
-  <script>
-    const fieldIds = ['bp','hr','spo2','rr','lungs','glucose','s','a','m','p','l','e','narrative'];
-
-    // Save form data to session storage whenever something changes
-    fieldIds.forEach(id => {
-      const field = document.getElementById(id);
-      field.addEventListener('input', () => {
-        sessionStorage.setItem(id, field.value);
+      // Save form data to session storage whenever something changes
+      fieldIds.forEach((id) => {
+        const field = document.getElementById(id);
+        field.addEventListener("input", () => {
+          sessionStorage.setItem(id, field.value);
+        });
       });
     });
 
-    // Load form data from session storage when the page loads
-    window.addEventListener('load', () => {
-      fieldIds.forEach(id => {
-        const saved = sessionStorage.getItem(id);
-        if (saved) document.getElementById(id).value = saved;
+      // Load saved data on page load
+      window.addEventListener("load", () => {
+        fieldIds.forEach((id) => {
+          const saved = sessionStorage.getItem(id);
+          if (saved) document.getElementById(id).value = saved;
+        });
       });
     });
 
-    function savePDF() {
-      const { jsPDF } = window.jspdf;
-      const doc = new jsPDF();
+      // Save PDF
+      function savePDF() {
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF();
 
-      const bp = document.getElementById('bp').value;
-      const hr = document.getElementById('hr').value;
-      const spo2 = document.getElementById('spo2').value;
-      const rr = document.getElementById('rr').value;
-      const lungs = document.getElementById('lungs').value;
-      const glucose = document.getElementById('glucose').value;
+        const bp = document.getElementById("bp").value;
+        const hr = document.getElementById("hr").value;
+        const spo2 = document.getElementById("spo2").value;
+        const rr = document.getElementById("rr").value;
+        const lungs = document.getElementById("lungs").value;
+        const s = document.getElementById("s").value;
+        const a = document.getElementById("a").value;
+        const m = document.getElementById("m").value;
+        const p = document.getElementById("p").value;
+        const l = document.getElementById("l").value;
+        const e = document.getElementById("e").value;
+        const narrative = document.getElementById("narrative").value;
 
-      const s = document.getElementById('s').value;
-      const a = document.getElementById('a').value;
-      const m = document.getElementById('m').value;
-      const p = document.getElementById('p').value;
-      const l = document.getElementById('l').value;
-      const e = document.getElementById('e').value;
+        doc.setFontSize(16);
+        doc.text("EMS Patient Narrative Report", 10, 15);
+        doc.setFontSize(12);
+        doc.text(`BP: ${bp}`, 10, 30);
+        doc.text(`HR: ${hr}`, 10, 40);
+        doc.text(`SpO₂: ${spo2}`, 10, 50);
+        doc.text(`RR: ${rr}`, 10, 60);
+        doc.text(`Lung Sounds: ${lungs}`, 10, 70);
 
-      const narrative = document.getElementById('narrative').value;
+        doc.text("S.A.M.P.L.E. History:", 10, 90);
+        doc.text(`S - ${s}`, 10, 100);
+        doc.text(`A - ${a}`, 10, 110);
+        doc.text(`M - ${m}`, 10, 120);
+        doc.text(`P - ${p}`, 10, 130);
+        doc.text(`L - ${l}`, 10, 140);
+        doc.text(`E - ${e}`, 10, 150);
 
-      doc.setFontSize(16);
-      doc.text('EMS Patient Narrative Report', 10, 15);
-      doc.setFontSize(12);
+        doc.text("Narrative:", 10, 170);
+        doc.text(doc.splitTextToSize(narrative, 180), 10, 180);
+        doc.save("Patient_Narrative.pdf");
+      }
 
-      doc.text(`BP: ${bp}`, 10, 30);
-      doc.text(`HR: ${hr}`, 10, 40);
-      doc.text(`SpO₂: ${spo2}`, 10, 50);
-      doc.text(`RR: ${rr}`, 10, 60);
-      doc.text(`Lung Sounds: ${lungs}`, 10, 70);
-      doc.text(`Glucose: ${glucose}`, 10, 80);
+      // Clear form and session storage
+      function clearForm() {
+        fieldIds.forEach((id) => {
+          document.getElementById(id).value = "";
+          sessionStorage.removeItem(id);
+        });
+      }
 
-      doc.text('S.A.M.P.L.E. History:', 10, 100);
-      doc.text(`S - ${s}`, 10, 110);
-      doc.text(`A - ${a}`, 10, 120);
-      doc.text(`M - ${m}`, 10, 130);
-      doc.text(`P - ${p}`, 10, 140);
-      doc.text(`L - ${l}`, 10, 150);
-      doc.text(`E - ${e}`, 10, 160);
+      /** 🧭 MOBILE KEYBOARD FIX **/
+      const container = document.querySelector(".container");
 
-      doc.text('Narrative:', 10, 180);
-      doc.text(doc.splitTextToSize(narrative, 180), 10, 190);
+      // Adjust scroll when viewport changes due to keyboard
+      if (window.visualViewport) {
+        window.visualViewport.addEventListener("resize", () => {
+          document.activeElement?.scrollIntoView({
+            behavior: "smooth",
+            block: "center",
+          });
+        });
+      }
 
-      doc.save('Patient_Narrative.pdf');
-    }
-
-    function clearForm() {
-      fieldIds.forEach(id => {
-        document.getElementById(id).value = '';
-        sessionStorage.removeItem(id);
-      });
-    }
-
-    // Prevent keyboard overlap on mobile
-    document.querySelectorAll('input, textarea').forEach(el => {
-      el.addEventListener('focus', () => {
-        setTimeout(() => el.scrollIntoView({ behavior: 'smooth', block: 'center' }), 300);
-      });
-    });
-  </script>
-</body>
+      // Fallback for browsers without visualViewport
+      document
+        .querySelectorAll("input, textarea")
+        .forEach((el) =>
+          el.addEventListener("focus", () => {
+            setTimeout(() => {
+              el.scrollIntoView({ behavior: "smooth", block: "center" });
+            }, 300);
+          })
+        );
+    </script>
+  </body>
 </html>
