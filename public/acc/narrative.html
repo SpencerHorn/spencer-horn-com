@@ -56,35 +56,17 @@
       .secondary {
         background: #6b7280;
       }
-      .secondary:hover {
-        background: #4b5563;
+      h1 {
+        font-size: 1.5rem;
       }
-      h1,
       h2 {
-        text-align: center;
+        font-size: 1.2rem;
       }
-      .vitals {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 10px;
+      input, textarea {
+        font-size: 0.95rem;
       }
-      @media (max-width: 600px) {
-        .vitals {
-          grid-template-columns: 1fr;
-        }
-        h1 {
-          font-size: 1.5rem;
-        }
-        h2 {
-          font-size: 1.2rem;
-        }
-        input,
-        textarea {
-          font-size: 0.95rem;
-        }
-        button {
-          font-size: 0.95rem;
-        }
+      button {
+        font-size: 0.95rem;
       }
     </style>
   </head>
@@ -142,6 +124,7 @@
           sessionStorage.setItem(id, field.value);
         });
       });
+    });
 
       // Load saved data on page load
       window.addEventListener("load", () => {
@@ -150,6 +133,7 @@
           if (saved) document.getElementById(id).value = saved;
         });
       });
+    });
 
       // Save PDF
       function savePDF() {
